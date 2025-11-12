@@ -1,0 +1,23 @@
+# @package _global_
+dataset:
+  _target_: src.data.cancer_sim.TumorGrowthDatasetPipeline   # Will be dynamically instantiated
+  name: tumor_generator
+  conf_coeff: 0.                                            # Confounding coefficient (gamma)
+  seed: 2025
+  n_units: 2000
+  n_periods: 3
+  window_size: 10                                       # Used for biased treatment assignment
+  lag: 0                                                # Lag for treatment assignment window
+  sequence_length: 30                                    # Max length of time series
+  lag_y: 5
+  normalize: True
+  val_batch_size: 32                                   # Batch size for evaluation
+  treatment_mode: multiclass                            # multiclass / multilabel -- for RMSN
+  treatment_sequence: [[0., 0., 0., 1.],                # treatment sequence to train on. Only works if cf_seq_mode = fixed_treatment
+                       [0., 0., 0., 1.]
+                       ]
+  split:
+    val: 0.15
+    test: 0.15
+exp:
+  exp_name: 'tumor_debug'

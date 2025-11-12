@@ -1,0 +1,31 @@
+# @package _global_
+model:
+  hidden_size: 50
+  num_layer: 1
+  hr_size: 30
+  dropout_rate: 0.1
+  fc_hidden_size: 25
+  treatment_sequence: [[1, 1], [1, 1], [1, 1]]
+
+  optimizer:
+    optimizer_cls: 'adam'
+    learning_rate: 0.001
+    weight_decay: 0.0
+    lr_scheduler: False
+    #scheduler
+    lr_scheduler_cls: 'ExponentialLR'
+    gamma: 0.99
+
+checkpoint:
+  monitor: 'val_loss'
+
+exp:
+  exp_name: '4.12-tumor_g_rnn'
+  max_epochs: 10                   # Number of epochs
+  batch_size: 64                   # Batch size
+  load_pretrained: False           # Load pretrained model
+  resume_train: False             # Resume training
+  run_ids:
+    - '0'
+    - '1'
+  exp_id: '0'                       # Experiment ID of the checkpoint

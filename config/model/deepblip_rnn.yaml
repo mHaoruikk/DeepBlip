@@ -1,0 +1,41 @@
+# @package _global_
+model:
+  static_treatment_policy: [0, 0, 0]
+  phi_type: 'current_treatment'
+  backbone: 'rnn' # 'transformer' or 'rnn'
+  hidden_size: 50
+  num_layer: 1
+  hr_size: 30
+  dropout_rate: 0.1
+  fc_hidden_size_p: 15
+  fc_hidden_size_q: 15
+  fc_hidden_size_psi: 15
+  dim_phi: 1
+  loss_type: 'moment'  #moment or OLS
+  moment_order: 1 # 1 for L1, 2 for L2-norm in moment loss
+  double_opt: True
+
+  optimizer:
+    optimizer_cls: adam
+    learning_rate: 0.001
+    weight_decay: 0.0
+    lr_scheduler: False
+    #scheduler
+    lr_scheduler_cls: 'ExponentialLR'
+    gamma: 0.9
+
+exp:
+  exp_name: '5.13-mimic-deepblip_blip_effects_vis'
+  kfold: 2
+  max_epochs_nuisance: 1                   # Number of epochs
+  max_epochs_blip: 5
+  fit_dml: False
+  plot_residual: True
+  load_pretrained: False                     #load pretrained model for nuiisance network
+  exp_id: "145244001441371150"
+  nuisance_run_ids:
+    - "a026f33b311e4382829c00631540c1aa"
+    - "33f0650f27724521bdf276267f2ca051"
+  resume_train: False
+  #use_regression_residual: False
+  #residual_dir: 'C:\Users\mhr_k\OneDrive\Documents\Thesis\Neural-R-Learner\mlruns\819398713364716680\3da1695f9b94424b87c1ef07fa8dfbdb\artifacts'

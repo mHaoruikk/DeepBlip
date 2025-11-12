@@ -1,0 +1,27 @@
+# @package _global_
+model:
+  hidden_size: 50
+  num_layer: 1
+  hr_size: 30
+  dropout_rate: 0.1
+  fc_hidden_size: 25
+
+  optimizer:
+    optimizer_cls: 'adam'
+    learning_rate: 0.001
+    weight_decay: 0.0
+    lr_scheduler: False
+    #scheduler
+    lr_scheduler_cls: 'ExponentialLR'
+    gamma: 0.99
+
+checkpoint:
+  monitor: 'val_loss'
+
+exp:
+  exp_name: '3.11-mimic-ipw_rnn_conf'
+  max_epochs_prop: 20                   # Number of epochs
+  max_epochs_ipw: 10
+  batch_size: 32                   # Batch size
+  load_pretrained: False           # Load pretrained model
+  resume_train: False             # Resume training

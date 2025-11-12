@@ -1,0 +1,5 @@
+# @package _global_
+exp:
+  exp_name: 'dml_nuisance_rnn-vs-lasso'
+  fit_dml: True
+  max_epochs_nuisance: 10

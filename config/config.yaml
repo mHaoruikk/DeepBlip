@@ -1,0 +1,21 @@
+exp:
+  seed: 100                         # Random seed for all the initialisations, dataset generation etc.
+  accelerator: 'gpu'                         
+  logging: True                     # Logging to MlFlow
+  mlflow_uri: http://127.0.0.1:3333 
+  batch_size: 32
+  num_workers: 2
+  log_every_n_steps: 100
+  gradient_clip_val: 0.0
+  exp_name: 'two-step-dblopt-1.0'          #'two-step-training'
+
+checkpoint:
+  save: True
+  top_k: 1
+  monitor_nuisance: 'val_loss'
+  monitor_blip: 'val_loss_blip'
+
+defaults:
+  - _self_
+  - override hydra/hydra_logging: colorlog
+  - override hydra/job_logging: colorlog

@@ -1,0 +1,26 @@
+mlflow server --port=3333
+python scripts/train_dml_rnn.py +dataset=linear_synthetic +model=dml_rnn
+python scripts/train_dml_rnn.py --multirun +dataset=synthetic +model=dml_rnn +model/dml_rnn_hparams=grid_search_synthetic
+python scripts/train_dml_rnn.py --multirun +dataset=synthetic +model=dml_rnn +model/dml_rnn_hparams=compare_nuisance
+
+python scripts/train_dml_hetero.py +dataset=synthetic +model=dml_hetero
+python scripts/train_dml.py +dataset=synthetic +model=dml
+
+python scripts/train_dml_rnn.py +dataset=mimic_synthetic_debug +model=dml_rnn
+python scripts/train_ha_rnn.py +dataset=mimic_synthetic_debug +model=ha_rnn
+python scripts/train_ipw_rnn.py +dataset=mimic_synthetic_debug +model=ipw_rnn
+
+python scripts/train_dml_rnn.py --multirun +dataset=mimic_synthetic_conf_tune +model=dml_rnn dataset.treatment_weight_multiplier=0.0,0.5,1.0,2.0,3.0,4.0,5.0,6.0,8.0,10.0
+python scripts/train_ipw_rnn.py --multirun +dataset=mimic_synthetic_conf_tune +model=ipw_rnn dataset.treatment_weight_multiplier=0.0,0.5,1.0,2.0,3.0,4.0,5.0,6.0,8.0,10.0
+
+#sequential execution of DML RNN
+python scripts/train_deepblip_rnn.py +dataset=mimic_synthetic_conf_tune +model=dml_rnn dataset.treatment_weight_multiplier=4.0;python scripts/train_dml_rnn.py +dataset=mimic_synthetic_conf_tune +model=dml_rnn dataset.treatment_weight_multiplier=5.0;python scripts/train_dml_rnn.py +dataset=mimic_synthetic_conf_tune +model=dml_rnn dataset.treatment_weight_multiplier=6.0;python scripts/train_dml_rnn.py +dataset=mimic_synthetic_conf_tune +model=dml_rnn dataset.treatment_weight_multiplier=8.0;python scripts/train_dml_rnn.py +dataset=mimic_synthetic_conf_tune +model=dml_rnn dataset.treatment_weight_multiplier=10.0;
+
+
+python scripts/train_ha_rnn.py --multirun +dataset=tumor_growth +model=ha_rnn dataset.conf_coeff=0.0,1.0,2.0,3.0,4.0,5.0,6.0,7.0,8.0,9.0,10.0
+python scripts/train_g_rnn.py --multirun +dataset=tumor_growth +model=g_rnn dataset.conf_coeff=0.0,1.0,2.0,3.0,4.0,5.0,6.0,7.0,8.0,9.0,10.0
+
+python scripts/train_ha_rnn.py --multirun +dataset=tumor_growth +model=ha_rnn dataset.conf_coeff=0.0,1.0,2.0,3.0,4.0,5.0,6.0,7.0,8.0,9.0,10.0
+
+python scripts/train_rmsn.py +dataset=tumor_growth +model=rmsn
+python scripts/train_rmsn.py --multirun +dataset=tumor_growth +model=rmsn dataset.conf_coeff=1.0,2.0,3.0,4.0,5.0,6.0,7.0,8.0,9.0,10.0
